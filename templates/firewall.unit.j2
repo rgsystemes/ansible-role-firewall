@@ -1,12 +1,13 @@
 [Unit]
-Description=Firewall
+Description=iptables firewall service
 After=syslog.target network.target
 
 [Service]
 Type=oneshot
-ExecStart=/etc/firewall.bash
-ExecStop="/sbin/iptables -F INPUT;/sbin/iptables -F FORWARD;/sbin/iptables -F OUTPUT"
-RemainAfterExit=yes
+ExecStart=/etc/firewall.bash start
+RemainAfterExit=true
+ExecStart=/etc/firewall.bash stop
+StandardOutput=journal
 
 [Install]
 WantedBy=multi-user.target
